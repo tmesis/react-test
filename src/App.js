@@ -2,27 +2,40 @@ import './App.css';
 import React from "react";
 
 
-const numbers = [1, 2, 3, 4, 5];
+const posts = [
+    {id: 1, title: 'Hello World', content: 'Welcome to learning React!'},
+    {id: 2, title: 'Installation', content: 'You can install React from npm.'}
+];
 
 
-function ListItem({value}) {
-    return <li>{value}</li>;
-}
-
-function NumberList({numbers}) {
-    const listItems = numbers.map((number) =>
-        <ListItem key={number.toString()} value={number}/>
+function Blog({posts}) {
+    const sidebar = (
+        <ul>
+            {posts.map((post) =>
+                <li key={post.id}>
+                    {post.title}
+                </li>
+            )}
+        </ul>
+    );
+    const content = posts.map((post) =>
+        <div key={post.id}>
+            <h3>{post.title}</h3>
+            <p>{post.content}</p>
+        </div>
     );
     return (
-        <ul>
-            {listItems}
-        </ul>
+        <div>
+            {sidebar}
+            <hr/>
+            {content}
+        </div>
     );
 }
 
 
 function App() {
-    return <NumberList numbers={numbers}/>
+    return <Blog posts={posts}/>
 }
 
 export default App;
