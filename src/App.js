@@ -10,16 +10,21 @@ function FancyBorder({color, children}) {
     );
 }
 
-function WelcomeDialog() {
+function Dialog({title, message}) {
     return (
         <FancyBorder color="blue">
-            <h1 className="Dialog-title">
-                Welcome
-            </h1>
-            <p className="Dialog-message">
-                Thank you for visiting our spacecraft!
-            </p>
+            <h1 className="Dialog-title">{title}</h1>
+            <p className="Dialog-message">{message}</p>
         </FancyBorder>
+    );
+}
+
+function WelcomeDialog() {
+    return (
+        <Dialog
+            title="Welcome"
+            message="Thank you for visiting our spacecraft!"
+        />
     );
 }
 
