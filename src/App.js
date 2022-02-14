@@ -3,13 +3,22 @@ import React from "react";
 
 
 const numbers = [1, 2, 3, 4, 5];
-const listItems = numbers.map((number) =>
-    <li>{number}</li>
-);
+
+
+function NumberList({numbers}) {
+    const listItems = numbers.map((number) =>
+        <li key={number.toString()}>
+            {number}
+        </li>
+    );
+    return (
+        <ul>{listItems}</ul>
+    );
+}
 
 
 function App() {
-    return <ul>{listItems}</ul>
+    return <NumberList numbers={numbers}/>
 }
 
 export default App;
