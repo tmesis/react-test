@@ -2,45 +2,14 @@ import './App.css';
 import React from "react";
 
 
-function WarningBanner({warn}) {
-    if (!warn) {
-        return null;
-    }
-
-    return (
-        <div className="warning">
-            Warning!
-        </div>
-    );
-}
-
-class Page extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {showWarning: true}
-    }
-
-    handleToggleClick = () => {
-        this.setState(prevState => ({
-            showWarning: !prevState.showWarning
-        }));
-    }
-
-    render() {
-        return (
-            <div>
-                <WarningBanner warn={this.state.showWarning} />
-                <button onClick={this.handleToggleClick}>
-                    {this.state.showWarning ? 'Hide' : 'Show'}
-                </button>
-            </div>
-        );
-    }
-}
+const numbers = [1, 2, 3, 4, 5];
+const listItems = numbers.map((number) =>
+    <li>{number}</li>
+);
 
 
 function App() {
-    return <Page />
+    return <ul>{listItems}</ul>
 }
 
 export default App;
