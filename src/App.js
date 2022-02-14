@@ -2,10 +2,10 @@ import './App.css';
 import React from "react";
 
 
-class NameForm extends React.Component {
+class FlavorForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: ''};
+        this.state = {value: 'coconut'};
     }
 
     handleChange = (event) => {
@@ -13,7 +13,7 @@ class NameForm extends React.Component {
     }
 
     handleSubmit = (event) => {
-        alert('A name was submitted: ' + this.state.value);
+        alert('Your favorite flavor is: ' + this.state.value);
         event.preventDefault();
     }
 
@@ -21,8 +21,13 @@ class NameForm extends React.Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <label>
-                    Name:
-                    <input type="text" value={this.state.value} onChange={this.handleChange}/>
+                    Pick your favorite flavor:
+                    <select value={this.state.value} onChange={this.handleChange}>
+                        <option value="grapefruit">Grapefruit</option>
+                        <option value="lime">Lime</option>
+                        <option value="coconut">Coconut</option>
+                        <option value="mango">Mango</option>
+                    </select>
                 </label>
                 <input type="submit" value="Submit"/>
             </form>
@@ -32,7 +37,7 @@ class NameForm extends React.Component {
 
 
 function App() {
-    return <NameForm/>
+    return <FlavorForm/>
 }
 
 export default App;
