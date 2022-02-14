@@ -2,55 +2,111 @@ import './App.css';
 import React from "react";
 
 
-function FancyBorder({color, children}) {
-    return (
-        <div className={'FancyBorder FancyBorder-' + color}>
-            {children}
-        </div>
-    );
-}
+const PRODUCTS = [
+    {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
+    {category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
+    {category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball'},
+    {category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch'},
+    {category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5'},
+    {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'}
+];
 
-function Dialog({title, message, children}) {
-    return (
-        <FancyBorder color="blue">
-            <h1 className="Dialog-title">{title}</h1>
-            <p className="Dialog-message">{message}</p>
-            {children}
-        </FancyBorder>
-    );
-}
 
-class SignUpDialog extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {login: ''};
-    }
-
+class ProductCategoryRow extends React.Component {
     render() {
+        const category = this.props.category;
         return (
-            <Dialog title="Mars Exploration Program" message="How should we refer to you?">
-                <input value={this.state.login}
-                       onChange={this.handleChange}
-                />
-                <button onClick={this.handleSignUp}>
-                    Sign Me Up!
-                </button>
-            </Dialog>
+            <tr>
+                <th colSpan="2">
+                    {category}
+                </th>
+            </tr>
         );
     }
+}
 
-    handleChange = (event) => {
-        this.setState({login: event.target.value});
+class ProductRow extends React.Component {
+    render() {
+        const product = this.props.product;
+        const name = product.stocked ?
+            product.name :
+            <span style={{color: 'red'}}>
+        {product.name}
+      </span>;
+
+        return (
+            <tr>
+                <td>{name}</td>
+                <td>{product.price}</td>
+            </tr>
+        );
     }
+}
 
-    handleSignUp = () => {
-        alert(`Welcome aboard, ${this.state.login}!`);
+class ProductTable extends React.Component {
+    render() {
+        const rows = [];
+        let lastCategory = null;
+
+        this.props.products.forEach((product) => {
+            if (product.category !== lastCategory) {
+                rows.push(
+                    <ProductCategoryRow
+                        category={product.category}
+                        key={product.category}/>
+                );
+            }
+            rows.push(
+                <ProductRow
+                    product={product}
+                    key={product.name}/>
+            );
+            lastCategory = product.category;
+        });
+
+        return (
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>{rows}</tbody>
+            </table>
+        );
+    }
+}
+
+class SearchBar extends React.Component {
+    render() {
+        return (
+            <form>
+                <input type="text" placeholder="Search..."/>
+                <p>
+                    <input type="checkbox"/>
+                    {' '}
+                    Only show products in stock
+                </p>
+            </form>
+        );
+    }
+}
+
+class FilterableProductTable extends React.Component {
+    render() {
+        return (
+            <div>
+                <SearchBar/>
+                <ProductTable products={this.props.products}/>
+            </div>
+        );
     }
 }
 
 
 function App() {
-    return <SignUpDialog/>
+    return <FilterableProductTable products={PRODUCTS}/>
 }
 
 export default App;
