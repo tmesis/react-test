@@ -4,58 +4,91 @@ function formatDate(date) {
     return date.toLocaleDateString();
 }
 
-function Avatar(props) {
+// function Avatar(props) {
+//     return (
+//         <img className="Avatar"
+//              src={props.user.avatarUrl}
+//              alt={props.user.name}/>
+//     );
+// }
+
+function Avatar({user}) {
     return (
         <img className="Avatar"
-             src={props.user.avatarUrl}
-             alt={props.user.name}/>
+             src={user.avatarUrl}
+             alt={user.name}/>
     );
 }
 
-function UserInfo(props) {
+// function UserInfo(props) {
+//     return (
+//         <div className="UserInfo">
+//             <Avatar user={props.user}/>
+//             <div className="UserInfo-name">
+//                 {props.user.name}
+//             </div>
+//         </div>
+//     );
+// }
+
+function UserInfo({user}) {
     return (
         <div className="UserInfo">
-            <Avatar user={props.user}/>
+            <Avatar user={user}/>
             <div className="UserInfo-name">
-                {props.user.name}
+                {user.name}
             </div>
         </div>
     );
 }
 
-function Comment(props) {
+// function Comment(props) {
+//     return (
+//         <div className="Comment">
+//             <UserInfo user={props.author}/>
+//             <div className="Comment-text">
+//                 {props.text}
+//             </div>
+//             <div className="Comment-date">
+//                 {formatDate(props.date)}
+//             </div>
+//         </div>
+//     );
+// }
+
+function Comment({author, text, date}) {
     return (
         <div className="Comment">
-            <UserInfo user={props.author}/>
+            <UserInfo user={author}/>
             <div className="Comment-text">
-                {props.text}
+                {text}
             </div>
             <div className="Comment-date">
-                {formatDate(props.date)}
+                {formatDate(date)}
             </div>
         </div>
     );
 }
 
-function Greeting(props) {
-    return (
-        <Comment
-            date={props.date}
-            text={props.text}
-            author={props.author}
-        />
-    )
-}
-
-// function Greeting({date, text, author}) {
+// function Greeting(props) {
 //     return (
 //         <Comment
-//             date={date}
-//             text={text}
-//             author={author}
+//             date={props.date}
+//             text={props.text}
+//             author={props.author}
 //         />
 //     )
 // }
+
+function Greeting({date, text, author}) {
+    return (
+        <Comment
+            date={date}
+            text={text}
+            author={author}
+        />
+    )
+}
 
 
 const comment = {
